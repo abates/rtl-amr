@@ -15,12 +15,12 @@ services:
   rtlamr:
     image: abates314/rtl-amr
     environment:
-      INFLUX_HOST: http://localhost:8086/
-      INFLUX_DB: "rtlamr"
-      INFLUX_USER: "rtlamr"
+      COLLECT_INFLUXDB_HOSTNAME: http://localhost:8086/
+      COLLECT_INFLUXDB_BUCKET: "utilities"
+      COLLECT_INFLUXDB_TOKEN: "#################################"
       INFLUX_PASS: "rtlamr"
-      FILTERID: "id1,id2,id3"
-      MSGTYPE: "scm,scm+,r900"
+      RTLAMR_FILTERID: "id1,id2,id3"
+      RTLAMR_MSGTYPE: "scm,scm+,r900"
     devices:
       - "/dev/bus/usb"
 ```

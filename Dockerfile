@@ -1,9 +1,12 @@
-FROM --platform=$BUILDPLATFORM alpine:edge
-ARG BUILDPLATFORM
-ARG TARGETARCH
+FROM golang:latest as builder
 
-COPY ./dist/$TARGETARCH/rtlamr /usr/bin
-COPY ./dist/$TARGETARCH/rtlamr-collect /usr/bin
+RUN go install github.com/bemasher/rtlamr-collect@latest && \
+    go install github.com/bemasher/rtlamr@latest
+
+FROM alpine:edge
+
+COPY --from=builder /go/bin/rtlamr /usr/bin
+COPY --from=builder /go/bin/rtlamr-collect /usr/bin
 COPY entrypoint.sh /usr/bin
 
 RUN apk update \
